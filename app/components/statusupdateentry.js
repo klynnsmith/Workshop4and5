@@ -1,22 +1,22 @@
 import React from 'react';
 export default class StatusUpdateEntry extends React.Component {
-render() {
-return (
-<div className="fb-status-update-entry panel panel-default">
-<div className="panel-body">
-<ul className="nav nav-pills">
-<li role="presentation" className="active">
-<a href="#"><span className="glyphicon glyphicon-pencil">
-</span> <strong>Update Status</strong></a>
-</li>
-<li role="presentation">
-<a href="#"><span className="glyphicon glyphicon-picture">
-</span> <strong>Add Photos/Video</strong></a>
-</li>
-<li role="presentation">
-<a href="#"><span className="glyphicon glyphicon-th">
-</span> <strong>Create Photo Album</strong></a>
-</li>
+  render() {
+      return (
+        <div className="fb-status-update-entry panel panel-default">
+        <div className="panel-body">
+        <ul className="nav nav-pills">
+        <li role="presentation" className="active">
+        <a href="#"><span className="glyphicon glyphicon-pencil">
+        </span> <strong>Update Status</strong></a>
+        </li>
+        <li role="presentation">
+        <a href="#"><span className="glyphicon glyphicon-picture">
+        </span> <strong>Add Photos/Video</strong></a>
+        </li>
+        <li role="presentation">
+        <a href="#"><span className="glyphicon glyphicon-th">
+        </span> <strong>Create Photo Album</strong></a>
+        </li>
 </ul>
 <div className="media">
 <div className="media-left media-top">
