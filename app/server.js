@@ -56,6 +56,55 @@ export function unlikeFeedItem(feedItemId, userId, cb) {
     emulateServerReturn(feedItem.likeCounter.map((userId) =>
         readDocument('users', userId)), cb);
 }
+
+/**
+ * Updates a feed item's likeCounter by adding the
+ * user to the likeCounter. Provides an updated likeCounter
+ * in the response.
+ */
+export function likeComment(feedItemId, userId, commentIndex, cb) {
+    var feedItem = readDocument('feedItems', feedItemId);
+    var comment = feedItem.comments[commentIndex];
+    // Normally, we would check if the user already
+    // liked this comment. But we will not do that
+    // in this mock server. ('push' modifies the array
+    // by adding userId to the end)
+    comment.likeCounter.push(userId);
+    writeDocument('feedItems', feedItem);
+    // Return a resolved version of the likeCounter
+    emulateServerReturn(comment.likeCounter.map((userId) =>
+        readDocument('users', userId)), cb);
+}
+/**
+ * Updates a feed item's likeCounter by removing
+ * the user from the likeCounter.
+ * Provides an updated likeCounter in the response.
+ */
+export function unlikeComment (feedItemId, userId, commentIndex, cb) {
+    var feedItem = readDocument('feedItems', feedItemId);
+    var comment = feedItem.comments[commentIndex];
+    // Find the array index that contains the user's ID.
+    // (We didn't *resolve* the FeedItem object, so
+    // it is just an array of user IDs)
+    var userIndex = comment.likeCounter.indexOf(userId);
+    // -1 means the user is *not* in the likeCounter,
+    // so we can simply avoid updating
+    // anything if that is the case: the user already
+    // doesn't like the item.
+    if (userIndex !== -1) {
+        // 'splice' removes items from an array. This
+        // removes 1 element starting from userIndex.
+        comment.likeCounter.splice(userIndex, 1);
+        writeDocument('feedItems', feedItem);
+    }
+    // Return a resolved version of the likeCounter
+    emulateServerReturn(comment.likeCounter.map((userId) =>
+        readDocument('users', userId)), cb);
+}
+
+
+
+
 /**
  * Adds a new comment to the database on the given feed item.
  * Returns the updated FeedItem object.

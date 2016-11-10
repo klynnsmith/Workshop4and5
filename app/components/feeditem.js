@@ -84,7 +84,10 @@ export default class FeedItem extends React.Component {
                 // Keys only need to be unique among *siblings*,
                 // so we can re-use the same key as the FeedItem.
                 contents = (
-                    <StatusUpdate key={data._id} author={data.contents.author} postDate={data.contents.postDate} location={data.contents.location}>
+                    <StatusUpdate key={data._id}
+                      author={data.contents.author}
+                      postDate={data.contents.postDate}
+                      location={data.contents.location}>
                         {data.contents.contents.split("\n").map((line, i) => {
                             // Note: 'i' is the index of line in data.contents.contents.
                             return (
@@ -140,7 +143,13 @@ export default class FeedItem extends React.Component {
                         {data.comments.map((comment, i) => {
                             // i is comment's index in comments array
                             return (
-                                <Comment key={i} author={comment.author} postDate={comment.postDate}>
+                                <Comment key={i}
+                                  feedItemID={data._id}
+                                   author={comment.author}
+                                   postDate={comment.postDate}
+                                   likeCounter={comment.likeCounter}
+                                   commentID={i}
+                                   >
                                     {comment.contents}
                                 </Comment>
                             );
